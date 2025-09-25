@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Login from './Login';
 
 const App = () => {
+  const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const App = () => {
         '68777880712-79pl25jsa37639ibme1back16g29surs.apps.googleusercontent.com',
       scopes: [GoogleAuthScopes.EMAIL],
     });
+    setIsConfigured(true);
 
     // Check if user is already signed in
     const currentUser: User | null = await GoogleAuth.getCurrentUser();
@@ -57,9 +59,11 @@ const App = () => {
     return idToken;
   }
 
-  return !user ? (
-    <Login setUser={setUser} />
-  ) : null /* TODO: Return the Main component */;
+  if (isConfigured) {
+    return !user ? (
+      <Login setUser={setUser} />
+    ) : null /* TODO: Return the Main component */;
+  }
 };
 
 export default App;
