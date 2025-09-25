@@ -16,7 +16,6 @@ const App = () => {
         '68777880712-79pl25jsa37639ibme1back16g29surs.apps.googleusercontent.com',
       scopes: [GoogleAuthScopes.EMAIL],
     });
-    setIsConfigured(true);
 
     // Check if user is already signed in
     const currentUser: User | null = await GoogleAuth.getCurrentUser();
@@ -32,15 +31,16 @@ const App = () => {
         },
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        setUser(currentUser);
+      } else {
         await GoogleAuth.signOut();
-        setUser(null);
 
         // TODO: Display error message
       }
     }
 
-    setUser(currentUser);
+    setIsConfigured(true);
   }
 
   async function getIdToken(): Promise<string> {

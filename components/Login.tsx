@@ -17,7 +17,7 @@ const Login = ({ setUser }: LoginProps) => {
         },
       );
 
-      if (/* response.ok UNCOMMENT WHEN THE API ROUTE IS IMPLEMENTED */ true) {
+      if (response.ok) {
         setUser(loginAttemptResult.data.user);
       } else {
         // TODO: Display error message
@@ -31,9 +31,7 @@ const Login = ({ setUser }: LoginProps) => {
     <View>
       <Pressable
         onPress={logIn}
-        style={({ pressed }) => [
-          { opacity: pressed ? 0.2 : 1, marginTop: 100 },
-        ]}
+        style={({ pressed }) => [{ opacity: pressed ? 0.2 : 1 }]}
       >
         <Text>Log in with Google</Text>
       </Pressable>
