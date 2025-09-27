@@ -1,13 +1,16 @@
 import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
 import { useState, useEffect } from 'react';
 import Login from './Login';
+import SplashScreen from './SplashScreen';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    configureGoogleAuth();
+    setTimeout(() => {
+      configureGoogleAuth();
+    }, 3000);
   }, []);
 
   async function configureGoogleAuth() {
@@ -62,6 +65,8 @@ const App = () => {
     return !user ? (
       <Login setUser={setUser} />
     ) : null /* TODO: Return the Main component */;
+  } else {
+    return <SplashScreen />;
   }
 };
 
