@@ -44,14 +44,13 @@ const App = () => {
   }
 
   async function getIdToken(): Promise<string> {
-    let tokens;
+    let tokens = await GoogleAuth.getTokens();
 
-    const isIdTokenExpired: boolean = await GoogleAuth.isTokenExpired();
+    const isIdTokenExpiredOrWillExpireSoon =
+      tokens.expiresAt - Date.now() <= 300000;
 
-    if (isIdTokenExpired) {
+    if (isIdTokenExpiredOrWillExpireSoon) {
       tokens = await GoogleAuth.refreshTokens();
-    } else {
-      tokens = await GoogleAuth.getTokens();
     }
 
     const { idToken } = tokens;
