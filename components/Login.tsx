@@ -1,6 +1,22 @@
 import { GoogleAuth } from 'react-native-google-auth';
-import { View, Pressable, Text } from 'react-native';
 import type { LoginProps } from '../interfaces/Login';
+import styled from 'styled-components/native';
+
+const BackgroundImage = styled.ImageBackground`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoginButton = styled.Pressable`
+  width: 225px;
+  height: 88px;
+`;
+
+const LoginButtonText = styled.Text`
+  text-align: center;
+`;
 
 const Login = ({ setUser }: LoginProps) => {
   async function logIn() {
@@ -28,14 +44,19 @@ const Login = ({ setUser }: LoginProps) => {
   }
 
   return (
-    <View>
-      <Pressable
-        onPress={logIn}
-        style={({ pressed }) => [{ opacity: pressed ? 0.2 : 1 }]}
-      >
-        <Text>Log in with Google</Text>
-      </Pressable>
-    </View>
+    <BackgroundImage
+      source={require('../assets/images/old-school-entrance.png')}
+    >
+      <LoginButton onPress={logIn}>
+        <BackgroundImage
+          source={require('../assets/images/login-button.png')}
+          imageStyle={{ resizeMode: 'contain' }}
+          style={{ filter: 'drop-shadow(0 0 5px rgb(0 0 0 / 1))' }}
+        >
+          <LoginButtonText>Log in with Google</LoginButtonText>
+        </BackgroundImage>
+      </LoginButton>
+    </BackgroundImage>
   );
 };
 
