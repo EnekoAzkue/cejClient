@@ -23,28 +23,34 @@ const LoginButtonText = styled(Text)`
   text-align: center;
 `;
 
-const Login = ({ setUser }: LoginProps) => {
+const Login = ({ setUser, setErrorModalMessage }: LoginProps) => {
   async function logIn() {
-    const loginAttemptResult = await GoogleAuth.signIn();
+    try {
+      const loginAttemptResult = await GoogleAuth.signIn();
 
-    if (loginAttemptResult.type === 'success') {
-      const idToken = loginAttemptResult.data.idToken;
+      if (loginAttemptResult.type === 'success') {
+        const idToken = loginAttemptResult.data.idToken;
 
-      const response = await fetch(
-        'https://example.com/' /* TODO: Specify API route when it is implemented */,
-        {
-          method: 'POST',
-          body: JSON.stringify({ idToken }),
-        },
-      );
+        const response = await fetch(
+          'https://example.com/' /* TODO: Specify API route when it is implemented */,
+          {
+            method: 'POST',
+            body: JSON.stringify({ idToken }),
+          },
+        );
 
-      if (response.ok) {
-        setUser(loginAttemptResult.data.user);
-      } else {
-        // TODO: Display error message
+        if (response.ok) {
+          setUser(loginAttemptResult.data.user);
+        } else {
+          await GoogleAuth.signOut();
+
+          setErrorModalMessage('Alas! Your identity could not be verified.');
+        }
       }
-    } else {
-      // TODO: Display error message
+    } catch {
+      setErrorModalMessage(
+        'Oh no! The authentication process with your Google account failed.',
+      );
     }
   }
 

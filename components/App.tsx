@@ -42,7 +42,9 @@ const App = () => {
       } else {
         await GoogleAuth.signOut();
 
-        // TODO: Display error message
+        setErrorModalMessage(
+          'Whoops! You have been logged out because your identity could not be verified.',
+        );
       }
     }
 
@@ -73,7 +75,10 @@ const App = () => {
 
       {isConfigured ? (
         !user ? (
-          <Login setUser={setUser} />
+          <Login
+            setUser={setUser}
+            setErrorModalMessage={setErrorModalMessage}
+          />
         ) : null /* TODO: Return the Main component */
       ) : (
         <SplashScreen />
