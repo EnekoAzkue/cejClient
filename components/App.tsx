@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react';
 import Login from './Login';
 import SplashScreen from './SplashScreen';
 import { verifyIdToken } from '../helpers/auth.helpers';
+import ErrorModal from './ErrorModal';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const [errorModalMessage, setErrorModalMessage] = useState<string>('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,7 +40,9 @@ const App = () => {
       } else {
         await GoogleAuth.signOut();
 
-        // TODO: Display error message
+        setErrorModalMessage(
+          'Whoops! You have been logged out because your identity could not be verified.',
+        );
       }
     }
 
@@ -59,13 +64,25 @@ const App = () => {
     return idToken;
   }
 
-  if (isConfigured) {
-    return !user ? (
-      <Login setUser={setUser} />
-    ) : null /* TODO: Return the Main component */;
-  } else {
-    return <SplashScreen />;
-  }
+  return (
+    <SafeAreaView>
+      <ErrorModal
+        message={errorModalMessage}
+        setMessage={setErrorModalMessage}
+      />
+
+      {isConfigured ? (
+        !user ? (
+          <Login
+            setUser={setUser}
+            setErrorModalMessage={setErrorModalMessage}
+          />
+        ) : null /* TODO: Return the Main component */
+      ) : (
+        <SplashScreen />
+      )}
+    </SafeAreaView>
+  );
 };
 
 export default App;
