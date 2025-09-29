@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Login from './Login';
 import SplashScreen from './SplashScreen';
 import ErrorModal from './ErrorModal';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -64,8 +65,11 @@ const App = () => {
   }
 
   return (
-    <>
-      <ErrorModal message={errorModalMessage} />
+    <SafeAreaView>
+      <ErrorModal
+        message={errorModalMessage}
+        setMessage={setErrorModalMessage}
+      />
 
       {isConfigured ? (
         !user ? (
@@ -74,7 +78,7 @@ const App = () => {
       ) : (
         <SplashScreen />
       )}
-    </>
+    </SafeAreaView>
   );
 };
 
