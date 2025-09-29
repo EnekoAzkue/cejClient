@@ -31,7 +31,7 @@ const Login = ({ setUser }: LoginProps) => {
     if (loginAttemptResult.type === 'success') {
       const idToken: string = loginAttemptResult.data.idToken;
 
-      const isIdTokenValid: boolean = await verifyIdToken('login', idToken);
+      const isIdTokenValid: boolean = await verifyIdToken('log-in', idToken);
 
       if (isIdTokenValid) {
         setUser(loginAttemptResult.data.user);
