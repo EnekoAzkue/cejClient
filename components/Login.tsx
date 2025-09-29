@@ -2,6 +2,7 @@ import { GoogleAuth } from 'react-native-google-auth';
 import type { LoginProps } from '../interfaces/Login';
 import styled from 'styled-components/native';
 import Text from './Text';
+import { verifyIdToken } from '../helpers/auth.helpers';
 
 const BackgroundImage = styled.ImageBackground`
   width: 100%;
@@ -28,17 +29,11 @@ const Login = ({ setUser }: LoginProps) => {
     const loginAttemptResult = await GoogleAuth.signIn();
 
     if (loginAttemptResult.type === 'success') {
-      const idToken = loginAttemptResult.data.idToken;
+      const idToken: string = loginAttemptResult.data.idToken;
 
-      const response = await fetch(
-        'https://example.com/' /* TODO: Specify API route when it is implemented */,
-        {
-          method: 'POST',
-          body: JSON.stringify({ idToken }),
-        },
-      );
+      const isIdTokenValid: boolean = await verifyIdToken('login', idToken);
 
-      if (response.ok) {
+      if (isIdTokenValid) {
         setUser(loginAttemptResult.data.user);
       } else {
         // TODO: Display error message

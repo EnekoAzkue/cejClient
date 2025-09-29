@@ -2,6 +2,7 @@ import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
 import { useState, useEffect } from 'react';
 import Login from './Login';
 import SplashScreen from './SplashScreen';
+import { verifyIdToken } from '../helpers/auth.helpers';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -26,15 +27,12 @@ const App = () => {
     if (currentUser) {
       const idToken: string = await getIdToken();
 
-      const response = await fetch(
-        'https://example.com/' /* TODO: Specify API route when it is implemented */,
-        {
-          method: 'POST',
-          body: JSON.stringify({ idToken }),
-        },
+      const isIdTokenValid: boolean = await verifyIdToken(
+        'access-logged-in',
+        idToken,
       );
 
-      if (response.ok) {
+      if (isIdTokenValid) {
         setUser(currentUser);
       } else {
         await GoogleAuth.signOut();
@@ -49,7 +47,7 @@ const App = () => {
   async function getIdToken(): Promise<string> {
     let tokens = await GoogleAuth.getTokens();
 
-    const isIdTokenExpiredOrWillExpireSoon =
+    const isIdTokenExpiredOrWillExpireSoon: boolean =
       tokens.expiresAt - Date.now() <= 300000;
 
     if (isIdTokenExpiredOrWillExpireSoon) {
