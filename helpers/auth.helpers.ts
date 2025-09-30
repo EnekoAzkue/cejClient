@@ -3,7 +3,7 @@ export async function verifyIdToken(
   idToken: string,
 ): Promise<boolean> {
   const { ok: isIdTokenValid } = await fetch(
-    `https://example.com/user/${endpoint}` /* TODO: Replace "example.com" with a valid value */,
+    `https://cej-server.onrender.com/user/${endpoint}`,
     {
       method: 'POST',
       body: JSON.stringify({ idToken }),
