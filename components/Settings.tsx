@@ -1,10 +1,19 @@
 import ScreenContainer from './ScreenContainer';
-import { Text } from 'react-native';
+import Logout from './Logout';
+import { User } from 'react-native-google-auth';
 
-const Settings = () => {
+interface SettingsProps {
+  setUser(user: User | null): void;
+  setErrorModalMessage(msg: string): void;
+}
+
+const Settings = ({ setUser, setErrorModalMessage }: SettingsProps) => {
   return (
     <ScreenContainer>
-      <Text>Settings Screen</Text>
+      <Logout
+        setUser={setUser}
+        setErrorModalMessage={setErrorModalMessage}
+      />
     </ScreenContainer>
   );
 };
