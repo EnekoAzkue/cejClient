@@ -5,6 +5,7 @@ import SplashScreen from './SplashScreen';
 import { verifyIdToken } from '../helpers/auth.helpers';
 import ErrorModal from './ErrorModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Main from './Main';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -77,7 +78,9 @@ const App = () => {
             setUser={setUser}
             setErrorModalMessage={setErrorModalMessage}
           />
-        ) : null /* TODO: Return the Main component */
+        ) : (
+          <Main />
+        )
       ) : (
         <SplashScreen />
       )}
