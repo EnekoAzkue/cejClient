@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 const BackgroundImage = styled.ImageBackground`
-  min-height: 100%;
+  height: 100%;
 `;
 
 const ScreenContainer = ({ children }) => {

@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import Navigation from './Navigation';
 
 const Container = styled.View`
-  min-height: 100%;
+  height: 100%;
 `;
 
 const Main = () => {
