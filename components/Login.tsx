@@ -27,9 +27,9 @@ const LoginButtonText = styled(Text)`
 const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
-      setIsLoading?.(true);
-
+      
       const loginAttemptResult = await GoogleAuth.signIn();
+      setIsLoading?.(true);
 
       if (loginAttemptResult.type === 'success') {
         const idToken: string = loginAttemptResult.data.idToken;
