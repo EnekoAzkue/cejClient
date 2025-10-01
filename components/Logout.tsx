@@ -2,6 +2,8 @@ import { GoogleAuth } from 'react-native-google-auth';
 import type { LogoutProps } from '../interfaces/Logout';
 import styled from 'styled-components/native';
 import Text from './Text';
+import { UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 
 const Container = styled.View`
   flex: 1;
@@ -26,14 +28,15 @@ const LogoutButtonText = styled(Text)`
   text-align: center;
 `;
 
-const Logout = ({ setUser, setErrorModalMessage }: LogoutProps) => {
+const Logout = () => {
+  const setUser = useContext(UserContext)
+
   async function logOut() {
-    try {
+
+      console.log("Logging out")
       await GoogleAuth.signOut();
-      setUser(null);
-    } catch {
-      setErrorModalMessage('Oh no! Logout failed. Please try again.');
-    }
+      setUser(null)
+
   }
 
   return (

@@ -6,6 +6,7 @@ import { verifyIdToken } from '../helpers/auth.helpers';
 import ErrorModal from './ErrorModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Main from './Main';
+import { UserContext } from '../contexts/UserContext';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -66,25 +67,27 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView>
-      <ErrorModal
-        message={errorModalMessage}
-        setMessage={setErrorModalMessage}
-      />
+    <UserContext value={setUser}>
+      <SafeAreaView>
+        <ErrorModal
+          message={errorModalMessage}
+          setMessage={setErrorModalMessage}
+        />
 
-      {isConfigured ? (
-        !user ? (
-          <Login
-            setUser={setUser}
-            setErrorModalMessage={setErrorModalMessage}
-          />
+        {isConfigured ? (
+          !user ? (
+            <Login
+              setUser={setUser}
+              setErrorModalMessage={setErrorModalMessage}
+            />
+          ) : (
+            <Main />
+          )
         ) : (
-          <Main />
-        )
-      ) : (
-        <SplashScreen />
-      )}
-    </SafeAreaView>
+          <SplashScreen />
+        )}
+      </SafeAreaView>
+    </UserContext>
   );
 };
 
