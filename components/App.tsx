@@ -7,11 +7,13 @@ import ErrorModal from './ErrorModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
+import CircleSpinner from './Spinner';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [errorModalMessage, setErrorModalMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,13 +78,16 @@ const App = () => {
 
         {isConfigured ? (
           !user ? (
-            <Login
-              setUser={setUser}
-              setErrorModalMessage={setErrorModalMessage}
-            />
-          ) : (
-            <Main />
-          )
+            <>
+              <Login
+                setUser={setUser}
+                setErrorModalMessage={setErrorModalMessage}
+                setIsLoading={setIsLoading}
+                />
+
+              {isLoading && <CircleSpinner />}
+            </>
+          ) : <Main /> /* TODO: Return the Main component */
         ) : (
           <SplashScreen />
         )}

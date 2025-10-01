@@ -24,10 +24,12 @@ const LoginButtonText = styled(Text)`
   text-align: center;
 `;
 
-const Login = ({ setUser, setErrorModalMessage }: LoginProps) => {
+const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
+      
       const loginAttemptResult = await GoogleAuth.signIn();
+      setIsLoading?.(true);
 
       if (loginAttemptResult.type === 'success') {
         const idToken: string = loginAttemptResult.data.idToken;
@@ -46,6 +48,8 @@ const Login = ({ setUser, setErrorModalMessage }: LoginProps) => {
       setErrorModalMessage(
         'Oh no! The authentication process with your Google account failed.',
       );
+    } finally {
+      setIsLoading?.(false);
     }
   }
 
