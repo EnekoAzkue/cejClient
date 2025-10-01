@@ -1,10 +1,13 @@
 import ScreenContainer from './ScreenContainer';
-import { Text } from 'react-native';
+import Logout from './Logout';
+import { User } from 'react-native-google-auth';
+
 
 const Settings = () => {
   return (
     <ScreenContainer>
-      <Text>Settings Screen</Text>
+      <Logout
+      />
     </ScreenContainer>
   );
 };
