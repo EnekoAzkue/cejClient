@@ -1,10 +1,10 @@
-import { CircleFade, Fold, Swing, Chase, Bounce, Pulse, Grid, Circle } from 'react-native-animated-spinkit';
+import { Bounce } from 'react-native-animated-spinkit';
 import { View, StyleSheet } from 'react-native';
 
 function CircleSpinner() {
   return (
     <View style={styles.container}>
-      <CircleFade size={80} color="#FFF" />
+      <Bounce size={80} color="rgba(255, 255, 255, 1)" />
     </View>
   );
 }
