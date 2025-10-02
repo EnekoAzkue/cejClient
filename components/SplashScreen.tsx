@@ -1,12 +1,19 @@
 import styled from 'styled-components/native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-const Image = styled.Image`
+const AnimatedImage = styled(Animated.Image)`
   width: 100%;
   height: 100%;
 `;
 
 const SplashScreen = () => {
-  return <Image source={require('../assets/images/splash-screen.png')} />;
+  return (
+    <AnimatedImage
+      source={require('../assets/images/splash-screen.png')}
+      entering={FadeIn}
+      exiting={FadeOut}
+    />
+  );
 };
 
 export default SplashScreen;
