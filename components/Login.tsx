@@ -28,8 +28,8 @@ const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
       
-      const loginAttemptResult = await GoogleAuth.signIn();
       setIsLoading?.(true);
+      const loginAttemptResult = await GoogleAuth.signIn();
 
       if (loginAttemptResult.type === 'success') {
         const idToken: string = loginAttemptResult.data.idToken;
