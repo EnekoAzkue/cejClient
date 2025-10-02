@@ -2,7 +2,7 @@ import { User, GoogleAuth, GoogleAuthScopes } from 'react-native-google-auth';
 import { useState, useEffect } from 'react';
 import Login from './Login';
 import SplashScreen from './SplashScreen';
-import { verifyIdToken } from '../helpers/auth.helpers';
+import { authenticateUser } from '../helpers/auth.helpers';
 import ErrorModal from './ErrorModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Main from './Main';
@@ -34,12 +34,12 @@ const App = () => {
     if (currentUser) {
       const idToken: string = await getIdToken();
 
-      const isIdTokenValid: boolean = await verifyIdToken(
+      const authenticationAttemptStatusCode: number = await authenticateUser(
         'access-logged-in',
         idToken,
       );
 
-      if (isIdTokenValid) {
+      if (authenticationAttemptStatusCode === 200) {
         setUser(currentUser);
       } else {
         await GoogleAuth.signOut();
@@ -83,11 +83,13 @@ const App = () => {
                 setUser={setUser}
                 setErrorModalMessage={setErrorModalMessage}
                 setIsLoading={setIsLoading}
-                />
+              />
 
               {isLoading && <CircleSpinner />}
             </>
-          ) : <Main /> /* TODO: Return the Main component */
+          ) : (
+            <Main />
+          )
         ) : (
           <SplashScreen />
         )}

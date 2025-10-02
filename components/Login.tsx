@@ -2,7 +2,7 @@ import { GoogleAuth } from 'react-native-google-auth';
 import type { LoginProps } from '../interfaces/Login';
 import styled from 'styled-components/native';
 import Text from './Text';
-import { verifyIdToken } from '../helpers/auth.helpers';
+import { authenticateUser } from '../helpers/auth.helpers';
 
 const BackgroundImage = styled.ImageBackground`
   width: 100%;
@@ -27,21 +27,27 @@ const LoginButtonText = styled(Text)`
 const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
-      
       const loginAttemptResult = await GoogleAuth.signIn();
       setIsLoading?.(true);
 
       if (loginAttemptResult.type === 'success') {
         const idToken: string = loginAttemptResult.data.idToken;
 
-        const isIdTokenValid: boolean = await verifyIdToken('log-in', idToken);
+        const authenticationAttemptStatusCode: number = await authenticateUser(
+          'log-in',
+          idToken,
+        );
 
-        if (isIdTokenValid) {
+        if (authenticationAttemptStatusCode <= 201) {
           setUser(loginAttemptResult.data.user);
         } else {
           await GoogleAuth.signOut();
 
-          setErrorModalMessage('Alas! Your identity could not be verified.');
+          if (authenticationAttemptStatusCode === 500) {
+            setErrorModalMessage('Alas! Your identity could not be verified.');
+          } else {
+            setErrorModalMessage('Get out of here! You are not worthy.');
+          }
         }
       }
     } catch {
