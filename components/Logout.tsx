@@ -36,7 +36,7 @@ const Logout = () => {
       console.log("Logging out")
       await GoogleAuth.signOut();
       setUser(null)
-      setLogoutModalMessage( "User logged out")
+      setLogoutModalMessage( "The gate closes behind you.\n Session over.")
 
   }
 

@@ -15,7 +15,7 @@ const BackgroundImage = styled.ImageBackground`
 `;
 
 const Content = styled.View`
-  height: 100%;
+  height: 85%;
   justify-content: center;
   align-items: center;
   row-gap: 18.5px;
@@ -30,7 +30,7 @@ const Message = styled(Text)`
 
 const DismissButton = styled.Pressable`
   border-radius: 10px;
-  padding: 10px 60px;
+  padding: 10px 30px;
   filter: drop-shadow(0 0 5px rgb(0 0 0));
   background-color: rgb(0 0 0 / 0.65);
 `;
