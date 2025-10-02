@@ -8,11 +8,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
+import LogoutModal from './LogoutModal';
+import { LogoutContext } from '../contexts/LogoutContext';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [errorModalMessage, setErrorModalMessage] = useState<string>('');
+  const [logoutModalMessage, setLogoutModalMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -75,7 +78,10 @@ const App = () => {
           message={errorModalMessage}
           setMessage={setErrorModalMessage}
         />
-
+        <LogoutModal
+          message={logoutModalMessage}
+          setMessage={setLogoutModalMessage}
+        />
         {isConfigured ? (
           !user ? (
             <>
@@ -87,9 +93,12 @@ const App = () => {
 
               {isLoading && <CircleSpinner />}
             </>
-          ) : (
+          ) : 
+          <LogoutContext value={setLogoutModalMessage}>
             <Main />
-          )
+          </LogoutContext>
+
+
         ) : (
           <SplashScreen />
         )}
