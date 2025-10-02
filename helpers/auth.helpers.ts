@@ -1,8 +1,8 @@
-export async function verifyIdToken(
+export async function authenticateUser(
   endpoint: string,
   idToken: string,
-): Promise<boolean> {
-  const { ok: isIdTokenValid } = await fetch(
+): Promise<number> {
+  const { status: statusCode } = await fetch(
     `https://cej-server.onrender.com/user/${endpoint}`,
     {
       method: 'POST',
@@ -13,5 +13,5 @@ export async function verifyIdToken(
     },
   );
 
-  return isIdTokenValid;
+  return statusCode;
 }

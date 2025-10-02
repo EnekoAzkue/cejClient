@@ -1,5 +1,4 @@
 import { GoogleAuth } from 'react-native-google-auth';
-import type { LogoutProps } from '../interfaces/Logout';
 import styled from 'styled-components/native';
 import Text from './Text';
 import { UserContext } from '../contexts/UserContext';
@@ -29,14 +28,12 @@ const LogoutButtonText = styled(Text)`
 `;
 
 const Logout = () => {
-  const setUser = useContext(UserContext)
+  const setUser = useContext(UserContext);
 
   async function logOut() {
+    await GoogleAuth.signOut();
 
-      console.log("Logging out")
-      await GoogleAuth.signOut();
-      setUser(null)
-
+    setUser(null);
   }
 
   return (
@@ -46,7 +43,7 @@ const Logout = () => {
           source={require('../assets/images/login-button.png')}
           imageStyle={{ resizeMode: 'contain' }}
         >
-          <LogoutButtonText>Log Out</LogoutButtonText>
+          <LogoutButtonText>Log out</LogoutButtonText>
         </LogoutButtonBackgroundImage>
       </LogoutButton>
     </Container>
