@@ -1,9 +1,9 @@
 import { GoogleAuth } from 'react-native-google-auth';
-import type { LogoutProps } from '../interfaces/Logout';
 import styled from 'styled-components/native';
 import Text from './Text';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
+import { LogoutContext } from '../contexts/LogoutContext'; 
 
 const Container = styled.View`
   flex: 1;
@@ -30,12 +30,13 @@ const LogoutButtonText = styled(Text)`
 
 const Logout = () => {
   const setUser = useContext(UserContext)
-
+  const setLogoutModalMessage = useContext(LogoutContext)
   async function logOut() {
 
       console.log("Logging out")
       await GoogleAuth.signOut();
       setUser(null)
+      setLogoutModalMessage( "User logged out")
 
   }
 
