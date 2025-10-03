@@ -15,7 +15,7 @@ const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [errorModalMessage, setErrorModalMessage] = useState<string>('');
-  const [logoutModalMessage, setLogoutModalMessage] = useState<string>('')
+  const [logoutModalMessage, setLogoutModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -78,10 +78,12 @@ const App = () => {
           message={errorModalMessage}
           setMessage={setErrorModalMessage}
         />
+
         <LogoutModal
           message={logoutModalMessage}
           setMessage={setLogoutModalMessage}
         />
+
         {isConfigured ? (
           !user ? (
             <>
@@ -93,12 +95,11 @@ const App = () => {
 
               {isLoading && <CircleSpinner />}
             </>
-          ) : 
-          <LogoutContext value={setLogoutModalMessage}>
-            <Main />
-          </LogoutContext>
-
-
+          ) : (
+            <LogoutContext value={setLogoutModalMessage}>
+              <Main />
+            </LogoutContext>
+          )
         ) : (
           <SplashScreen />
         )}
