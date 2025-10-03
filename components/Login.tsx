@@ -1,8 +1,8 @@
 import { GoogleAuth } from 'react-native-google-auth';
 import type { LoginProps } from '../interfaces/Login';
 import styled from 'styled-components/native';
-import Text from './Text';
 import { authenticateUser } from '../helpers/auth.helpers';
+import LogXButton from './LogXButton';
 
 const BackgroundImage = styled.ImageBackground`
   width: 100%;
@@ -11,23 +11,9 @@ const BackgroundImage = styled.ImageBackground`
   align-items: center;
 `;
 
-const LoginButton = styled.Pressable`
-  width: 235px;
-  height: 98px;
-`;
-
-const LoginButtonBackgroundImage = styled(BackgroundImage)`
-  filter: drop-shadow(0 0 10px #000000);
-`;
-
-const LoginButtonText = styled(Text)`
-  text-align: center;
-`;
-
 const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
-      
       setIsLoading?.(true);
       const loginAttemptResult = await GoogleAuth.signIn();
 
@@ -56,7 +42,7 @@ const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
         'Oh no! The authentication process with your Google account failed.',
       );
     } finally {
-      setIsLoading?.(false);
+      setIsLoading(false);
     }
   }
 
@@ -64,14 +50,7 @@ const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
     <BackgroundImage
       source={require('../assets/images/old-school-entrance.png')}
     >
-      <LoginButton onPress={logIn}>
-        <LoginButtonBackgroundImage
-          source={require('../assets/images/login-button.png')}
-          imageStyle={{ resizeMode: 'contain' }}
-        >
-          <LoginButtonText>Log in with Google</LoginButtonText>
-        </LoginButtonBackgroundImage>
-      </LoginButton>
+      <LogXButton onPress={logIn} text={'Log in with Google'} />
     </BackgroundImage>
   );
 };
