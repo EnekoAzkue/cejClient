@@ -1,5 +1,5 @@
 import { Modal } from 'react-native';
-import type { ErrorModalProps } from '../interfaces/ErrorModal';
+import { GeneralModalProps } from '../interfaces/GeneralModal';
 import Text from './Text';
 import styled from 'styled-components/native';
 
@@ -40,7 +40,7 @@ const DismissButtonText = styled(Message)`
   color: rgb(177 164 144);
 `;
 
-const ErrorModal = ({ message, setMessage }: ErrorModalProps) => {
+const GeneralModal = ({ message, setMessage }: GeneralModalProps) => {
   function handlePress(): void {
     setMessage('');
   }
@@ -53,7 +53,7 @@ const ErrorModal = ({ message, setMessage }: ErrorModalProps) => {
     >
       <Container>
         <BackgroundImage
-          source={require('../assets/images/error-modal.png')}
+          source={require('../assets/images/general-modal.png')}
           imageStyle={{ resizeMode: 'contain' }}
         >
           <Content>
@@ -69,4 +69,4 @@ const ErrorModal = ({ message, setMessage }: ErrorModalProps) => {
   );
 };
 
-export default ErrorModal;
+export default GeneralModal;
