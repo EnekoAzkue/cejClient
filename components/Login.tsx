@@ -11,7 +11,7 @@ const BackgroundImage = styled.ImageBackground`
   align-items: center;
 `;
 
-const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
+const Login = ({ setUser, setGeneralModalMessage, setIsLoading }: LoginProps) => {
   async function logIn() {
     try {
       setIsLoading?.(true);
@@ -31,14 +31,14 @@ const Login = ({ setUser, setErrorModalMessage, setIsLoading }: LoginProps) => {
           await GoogleAuth.signOut();
 
           if (authenticationAttemptStatusCode === 500) {
-            setErrorModalMessage('Alas! Your identity could not be verified.');
+            setGeneralModalMessage('Alas! Your identity could not be verified.');
           } else {
-            setErrorModalMessage('Get out of here! You are not worthy.');
+            setGeneralModalMessage('Get out of here! You are not worthy.');
           }
         }
       }
     } catch {
-      setErrorModalMessage(
+      setGeneralModalMessage(
         'Oh no! The authentication process with your Google account failed.',
       );
     } finally {

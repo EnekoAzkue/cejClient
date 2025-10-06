@@ -1,4 +1,4 @@
-export interface ErrorModalProps {
+export interface GeneralModalProps {
   message: string;
   setMessage(message: string): void;
 }

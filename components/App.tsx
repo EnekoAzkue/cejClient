@@ -3,19 +3,17 @@ import { useState, useEffect } from 'react';
 import Login from './Login';
 import SplashScreen from './SplashScreen';
 import { authenticateUser } from '../helpers/auth.helpers';
-import ErrorModal from './ErrorModal';
+import GeneralModal from './GeneralModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
-import LogoutModal from './LogoutModal';
-import { LogoutContext } from '../contexts/LogoutContext';
+import { ModalContext } from '../contexts/ModalContext';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-  const [errorModalMessage, setErrorModalMessage] = useState<string>('');
-  const [logoutModalMessage, setLogoutModalMessage] = useState<string>('');
+  const [generalModalMessage, setGeneralModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,7 +45,7 @@ const App = () => {
       } else {
         await GoogleAuth.signOut();
 
-        setErrorModalMessage(
+        setGeneralModalMessage(
           'Whoops! You have been logged out because your identity could not be verified.',
         );
       }
@@ -74,14 +72,9 @@ const App = () => {
   return (
     <UserContext value={setUser}>
       <SafeAreaView>
-        <ErrorModal
-          message={errorModalMessage}
-          setMessage={setErrorModalMessage}
-        />
-
-        <LogoutModal
-          message={logoutModalMessage}
-          setMessage={setLogoutModalMessage}
+        <GeneralModal
+          message={generalModalMessage}
+          setMessage={setGeneralModalMessage}
         />
 
         {isConfigured ? (
@@ -89,16 +82,16 @@ const App = () => {
             <>
               <Login
                 setUser={setUser}
-                setErrorModalMessage={setErrorModalMessage}
+                setGeneralModalMessage={setGeneralModalMessage}
                 setIsLoading={setIsLoading}
               />
 
               {isLoading && <CircleSpinner />}
             </>
           ) : (
-            <LogoutContext value={setLogoutModalMessage}>
+            <ModalContext value={setGeneralModalMessage}>
               <Main />
-            </LogoutContext>
+            </ModalContext>
           )
         ) : (
           <SplashScreen />
