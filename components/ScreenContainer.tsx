@@ -1,14 +1,17 @@
 import styled from 'styled-components/native';
+import { PropsWithChildren } from 'react';
+import type { ScreenContainerProps } from '../interfaces/ScreenContainer';
 
 const BackgroundImage = styled.ImageBackground`
   height: 100%;
 `;
 
-const ScreenContainer = ({ children }) => {
+const ScreenContainer = ({
+  backgroundImgSrc,
+  children,
+}: PropsWithChildren<ScreenContainerProps>) => {
   return (
-    <BackgroundImage source={require('../assets/images/main-background.png')}>
-      {children}
-    </BackgroundImage>
+    <BackgroundImage source={backgroundImgSrc}>{children}</BackgroundImage>
   );
 };
 

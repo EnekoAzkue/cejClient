@@ -1,13 +1,12 @@
 import ScreenContainer from './ScreenContainer';
 import Logout from './Logout';
-import { User } from 'react-native-google-auth';
-
 
 const Settings = () => {
   return (
-    <ScreenContainer>
-      <Logout
-      />
+    <ScreenContainer
+      backgroundImgUrl={require('../assets/images/main-background.png')}
+    >
+      <Logout />
     </ScreenContainer>
   );
 };

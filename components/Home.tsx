@@ -3,7 +3,9 @@ import { Text } from 'react-native';
 
 const Home = () => {
   return (
-    <ScreenContainer>
+    <ScreenContainer
+      backgroundImgUrl={require('../assets/images/main-background.png')}
+    >
       <Text>Home Screen</Text>
     </ScreenContainer>
   );
