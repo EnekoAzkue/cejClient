@@ -3,6 +3,7 @@ import type { LoginProps } from '../interfaces/Login';
 import styled from 'styled-components/native';
 import { authenticateUser } from '../helpers/auth.helpers';
 import LogXButton from './LogXButton';
+import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
 
 const BackgroundImage = styled.ImageBackground`
   width: 100%;
@@ -11,7 +12,11 @@ const BackgroundImage = styled.ImageBackground`
   align-items: center;
 `;
 
-const Login = ({ setUser, setGeneralModalMessage, setIsLoading }: LoginProps) => {
+const Login = ({
+  setUser,
+  setGeneralModalMessage,
+  setIsLoading,
+}: LoginProps) => {
   async function logIn() {
     try {
       setIsLoading?.(true);
@@ -20,18 +25,18 @@ const Login = ({ setUser, setGeneralModalMessage, setIsLoading }: LoginProps) =>
       if (loginAttemptResult.type === 'success') {
         const idToken: string = loginAttemptResult.data.idToken;
 
-        const authenticationAttemptStatusCode: number = await authenticateUser(
-          'log-in',
-          idToken,
-        );
+        const authenticationAttemptResult: AuthenticateUserReturnValue =
+          await authenticateUser('log-in', idToken);
 
-        if (authenticationAttemptStatusCode <= 201) {
-          setUser(loginAttemptResult.data.user);
+        if (authenticationAttemptResult.statusCode <= 201) {
+          setUser(authenticationAttemptResult.user);
         } else {
           await GoogleAuth.signOut();
 
-          if (authenticationAttemptStatusCode === 500) {
-            setGeneralModalMessage('Alas! Your identity could not be verified.');
+          if (authenticationAttemptResult.statusCode === 500) {
+            setGeneralModalMessage(
+              'Alas! Your identity could not be verified.',
+            );
           } else {
             setGeneralModalMessage('Get out of here! You are not worthy.');
           }

@@ -10,6 +10,7 @@ import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
 import KaotikaUser from '../interfaces/KaotikaUser';
+import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -36,13 +37,11 @@ const App = () => {
     if (currentUser) {
       const idToken: string = await getIdToken();
 
-      const authenticationAttemptStatusCode: number = await authenticateUser(
-        'access-logged-in',
-        idToken,
-      );
+      const authenticationAttemptResult: AuthenticateUserReturnValue =
+        await authenticateUser('access-logged-in', idToken);
 
-      if (authenticationAttemptStatusCode === 200) {
-        setUser(currentUser);
+      if (authenticationAttemptResult.statusCode === 200) {
+        setUser(authenticationAttemptResult.user);
       } else {
         await GoogleAuth.signOut();
 

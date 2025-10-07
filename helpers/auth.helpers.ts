@@ -1,8 +1,10 @@
+import type { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
+
 export async function authenticateUser(
   endpoint: string,
   idToken: string,
-): Promise<number> {
-  const { status: statusCode } = await fetch(
+): Promise<AuthenticateUserReturnValue> {
+  const response = await fetch(
     `https://cej-server.onrender.com/user/${endpoint}`,
     {
       method: 'POST',
@@ -13,5 +15,12 @@ export async function authenticateUser(
     },
   );
 
-  return statusCode;
+  const { user } = await response.json();
+
+  const authenticationAttemptResult = {
+    statusCode: response.status,
+    user,
+  };
+
+  return authenticationAttemptResult;
 }
