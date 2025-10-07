@@ -9,6 +9,8 @@ import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
+import socket, { initSocket } from '../socket/socket'; 
+
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -21,6 +23,19 @@ const App = () => {
       configureGoogleAuth();
     }, 3000);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      initSocket(user.email);
+
+      return () => {
+        if (socket.connected) {
+          socket.disconnect();
+          console.log('Socket disconnected');
+        }
+      };
+    }
+  }, [user]);
 
   async function configureGoogleAuth() {
     await GoogleAuth.configure({
