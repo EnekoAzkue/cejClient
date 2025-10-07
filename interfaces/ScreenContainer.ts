@@ -1,7 +1,7 @@
-import { ImageSourcePropType } from 'react-native';
+import { ScreenBackgroundImgSrc } from '../constants';
 
 interface ScreenContainerProps {
-  backgroundImgSrc: ImageSourcePropType;
+  backgroundImgSrc: ScreenBackgroundImgSrc;
 }
 
 export type { ScreenContainerProps };
