@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BlurView } from '@react-native-community/blur';
 import { createStaticNavigation } from '@react-navigation/native';
-import Home from './Home';
-import Settings from './Settings';
+import AcolyteHome from './roles/acolyte/AcolyteHome';
+import AcolyteSettings from './roles/acolyte/AcolyteSettings';
 
 const TabIcon = styled.Image`
   width: 25px;
@@ -20,11 +20,11 @@ const Navigator = createBottomTabNavigator({
         let tabIconSource;
 
         switch (route.name) {
-          case 'Home':
+          case 'AcolyteHome':
             tabIconSource = require('../assets/images/home-icon.png');
             break;
 
-          case 'Settings':
+          case 'AcolyteSettings':
             tabIconSource = require('../assets/images/settings-icon.png');
             break;
         }
@@ -50,8 +50,8 @@ const Navigator = createBottomTabNavigator({
     };
   },
   screens: {
-    Home,
-    Settings,
+    AcolyteHome,
+    AcolyteSettings,
   },
 });
 
