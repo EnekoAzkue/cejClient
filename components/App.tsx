@@ -9,10 +9,11 @@ import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
+import KaotikaUser from '../interfaces/KaotikaUser';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<KaotikaUser | null>(null);
   const [generalModalMessage, setGeneralModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -70,7 +71,7 @@ const App = () => {
   }
 
   return (
-    <UserContext value={setUser}>
+    <UserContext value={{ user, setUser }}>
       <SafeAreaView>
         <GeneralModal
           message={generalModalMessage}

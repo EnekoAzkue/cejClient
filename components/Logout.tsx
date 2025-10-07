@@ -12,7 +12,7 @@ const Container = styled.View`
 `;
 
 const Logout = () => {
-  const setUser = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const setGeneralModalMessage = useContext(ModalContext);
 
   async function logOut() {
