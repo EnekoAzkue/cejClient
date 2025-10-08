@@ -12,4 +12,18 @@ enum ScreenBackgroundImgSrc {
   VILLAIN_SETTINGS = require('./assets/images/main-background.png') /* TODO: Reference definitive background image */,
 }
 
-export { ScreenBackgroundImgSrc };
+enum UserRole {
+  ACOLYTE = 'acolyte',
+  ISTVAN = 'istvan',
+  MORTIMER = 'mortimer',
+  VILLAIN = 'villain',
+}
+
+enum Tab {
+  HOME = 'Home',
+  ANGELO_LAB = 'AngeloLab',
+  SCAN_QR = 'ScanQr',
+  SETTINGS = 'Settings',
+}
+
+export { ScreenBackgroundImgSrc, UserRole, Tab };
