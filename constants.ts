@@ -12,4 +12,12 @@ enum ScreenBackgroundImgSrc {
   VILLAIN_SETTINGS = require('./assets/images/main-background.png') /* TODO: Reference definitive background image */,
 }
 
-export { ScreenBackgroundImgSrc };
+enum SocketEvents {
+  CONNECTION_OPEN = "connection open",
+  CONNECTION_OPEN_MESSAGE = "Socket connected with id:",
+  CONNECT = "connect",
+  CONECTED_EMAIL = "socket connected with mail:"
+
+}
+
+export { ScreenBackgroundImgSrc, SocketEvents };

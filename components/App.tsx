@@ -9,7 +9,7 @@ import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
-import socket, { initSocket } from '../socket/socket'; 
+import socket, { discSocket, initSocket } from '../socket/socket'; 
 
 
 const App = () => {
@@ -30,8 +30,7 @@ const App = () => {
 
       return () => {
         if (socket.connected) {
-          socket.disconnect();
-          console.log('Socket disconnected');
+          discSocket();
         }
       };
     }
