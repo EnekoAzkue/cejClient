@@ -3,12 +3,22 @@ import type {
   ServerToClientEvents,
   ClientToServerEvents,
 } from '../interfaces/socket';
+import { SocketGeneralEvents } from '../constants';
+import { handleConnection } from './handlers/connection';
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  'http://localhost:3000',
+  'https://cej-server.onrender.com/',
   {
     autoConnect: false,
   },
 );
 
-export default socket;
+function initSocket(userEmail: string) {
+  socket.on(SocketGeneralEvents.CONNECT, () => {
+    handleConnection(userEmail);
+  });
+
+  socket.connect();
+}
+
+export { socket, initSocket };

@@ -1,7 +1,9 @@
+import { SocketClientToServerEvents } from '../constants';
+
 // Declaration of the events used when receiving events from the server
-interface ServerToClientEvents {}
+export interface ServerToClientEvents {}
 
 // Declaration of the events used when sending events to the server
-interface ClientToServerEvents {}
-
-export type { ServerToClientEvents, ClientToServerEvents };
+export interface ClientToServerEvents {
+  [SocketClientToServerEvents.CONNECTION_OPEN]: (userEmail: string) => void;
+}

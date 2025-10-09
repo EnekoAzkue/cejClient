@@ -11,6 +11,7 @@ import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
 import KaotikaUser from '../interfaces/KaotikaUser';
 import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
+import { socket, initSocket } from '../socket/socket';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -23,6 +24,16 @@ const App = () => {
       configureGoogleAuth();
     }, 3000);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      initSocket(user.email);
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [user]);
 
   async function configureGoogleAuth() {
     await GoogleAuth.configure({

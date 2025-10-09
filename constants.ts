@@ -26,4 +26,18 @@ enum Tab {
   SETTINGS = 'Settings',
 }
 
-export { ScreenBackgroundImgSrc, UserRole, Tab };
+enum SocketGeneralEvents {
+  CONNECT = 'connect',
+}
+
+enum SocketClientToServerEvents {
+  CONNECTION_OPEN = 'connection open',
+}
+
+export {
+  ScreenBackgroundImgSrc,
+  UserRole,
+  Tab,
+  SocketGeneralEvents,
+  SocketClientToServerEvents,
+};
