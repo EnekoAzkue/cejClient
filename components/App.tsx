@@ -11,7 +11,7 @@ import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
 import KaotikaUser from '../interfaces/KaotikaUser';
 import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
-import { socket, initSocket } from '../socket/socket';
+import { initSocket, performSocketCleanUp } from '../socket/socket';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -29,9 +29,7 @@ const App = () => {
     if (user) {
       initSocket(user.email);
 
-      return () => {
-        socket.disconnect();
-      };
+      return performSocketCleanUp;
     }
   }, [user]);
 

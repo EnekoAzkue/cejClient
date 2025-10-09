@@ -21,4 +21,10 @@ function initSocket(userEmail: string) {
   socket.connect();
 }
 
-export { socket, initSocket };
+function performSocketCleanUp() {
+  socket.off(SocketGeneralEvents.CONNECT);
+
+  socket.disconnect();
+}
+
+export { socket, initSocket, performSocketCleanUp };
