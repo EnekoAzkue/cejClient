@@ -9,8 +9,9 @@ import Main from './Main';
 import { UserContext } from '../contexts/UserContext';
 import CircleSpinner from './Spinner';
 import { ModalContext } from '../contexts/ModalContext';
-import socket, { discSocket, initSocket } from '../socket/socket'; 
-
+import { socket, initSocket } from '../socket/socket';
+import { SocketGeneralEvents } from '../constants';
+import { handleConnection } from '../socket/handlers/connection';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -29,9 +30,7 @@ const App = () => {
       initSocket(user.email);
 
       return () => {
-        if (socket.connected) {
-          discSocket();
-        }
+        socket.disconnect();
       };
     }
   }, [user]);
