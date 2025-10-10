@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import { ModalContext } from '../contexts/ModalContext';
-import LogXButton from './LogXButton';
+import Button from './Button';
+import { ButtonBackgroundImgSrc } from '../constants';
 
 const Container = styled.View`
   flex: 1;
@@ -23,7 +24,11 @@ const Logout = () => {
 
   return (
     <Container>
-      <LogXButton onPress={logOut} text={'Log out'} />
+      <Button
+        onPress={logOut}
+        backgroundImgSrc={ButtonBackgroundImgSrc.ACOLYTE_THEMED}
+        text={'Log out'}
+      />
     </Container>
   );
 };

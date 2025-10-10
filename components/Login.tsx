@@ -2,8 +2,9 @@ import { GoogleAuth } from 'react-native-google-auth';
 import type { LoginProps } from '../interfaces/Login';
 import styled from 'styled-components/native';
 import { authenticateUser } from '../helpers/auth.helpers';
-import LogXButton from './LogXButton';
+import Button from './Button';
 import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
+import { ButtonBackgroundImgSrc } from '../constants';
 
 const BackgroundImage = styled.ImageBackground`
   width: 100%;
@@ -55,7 +56,11 @@ const Login = ({
     <BackgroundImage
       source={require('../assets/images/old-school-entrance.png')}
     >
-      <LogXButton onPress={logIn} text={'Log in with Google'} />
+      <Button
+        onPress={logIn}
+        backgroundImgSrc={ButtonBackgroundImgSrc.ACOLYTE_THEMED}
+        text={'Log in with Google'}
+      />
     </BackgroundImage>
   );
 };

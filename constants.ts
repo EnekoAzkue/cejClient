@@ -12,6 +12,10 @@ enum ScreenBackgroundImgSrc {
   VILLAIN_SETTINGS = require('./assets/images/main-background.png') /* TODO: Reference definitive background image */,
 }
 
+enum ButtonBackgroundImgSrc {
+  ACOLYTE_THEMED = require('./assets/images/acolyte-themed-button.png'),
+}
+
 enum UserRole {
   ACOLYTE = 'acolyte',
   ISTVAN = 'istvan',
@@ -36,6 +40,7 @@ enum SocketClientToServerEvents {
 
 export {
   ScreenBackgroundImgSrc,
+  ButtonBackgroundImgSrc,
   UserRole,
   Tab,
   SocketGeneralEvents,
