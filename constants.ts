@@ -13,6 +13,7 @@ enum ScreenBackgroundImgSrc {
 }
 
 enum ButtonBackgroundImgSrc {
+  CLOSE_CAMERA = require('./assets/images/close-camera.png'),
   ACOLYTE_THEMED = require('./assets/images/acolyte-themed-button.png'),
 }
 

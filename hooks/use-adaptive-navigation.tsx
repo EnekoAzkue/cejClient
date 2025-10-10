@@ -71,12 +71,7 @@ function createNavigatorAdaptedToUserRole(
             />
           );
         },
-        tabBarStyle: {
-          position: 'absolute',
-          overflow: 'hidden',
-          borderTopWidth: 0,
-          boxShadow: `0 -11.5px 5px ${adaptiveNavigatorData.thematicColor}`,
-        },
+        tabBarStyle: adaptiveNavigatorData.tabBarStyle,
         headerShown: false,
       };
     },
@@ -95,6 +90,11 @@ function useAdaptiveNavigation() {
     screens: {},
     thematicColor: '',
     thematicColorInDeg: '',
+    tabBarStyle: {
+      position: 'absolute',
+      overflow: 'hidden',
+      borderTopWidth: 0,
+    },
   };
 
   switch (rol) {
@@ -108,7 +108,10 @@ function useAdaptiveNavigation() {
 
     case UserRole.ISTVAN:
       adaptiveNavigatorData.screens.Home = IstvanHome;
-      adaptiveNavigatorData.screens.ScanQr = ScanQr;
+      adaptiveNavigatorData.screens.ScanQr = {
+        screen: ScanQr,
+        initialParams: { tabBarStyle: adaptiveNavigatorData.tabBarStyle },
+      };
       adaptiveNavigatorData.screens.Settings = IstvanSettings;
       adaptiveNavigatorData.thematicColor = 'rgba(218 205 176 / 0.1)'; // TODO: Specify unique thematic color
       adaptiveNavigatorData.thematicColorInDeg = '0deg'; // TODO: Specify unique thematic color in degrees
@@ -129,6 +132,8 @@ function useAdaptiveNavigation() {
       adaptiveNavigatorData.thematicColorInDeg = '0deg'; // TODO: Specify unique thematic color in degrees
       break;
   }
+
+  adaptiveNavigatorData.tabBarStyle.boxShadow = `0 -11.5px 5px ${adaptiveNavigatorData.thematicColor}`;
 
   const Navigator = createNavigatorAdaptedToUserRole(adaptiveNavigatorData);
 
