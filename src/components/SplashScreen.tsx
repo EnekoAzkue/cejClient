@@ -9,7 +9,7 @@ const AnimatedImage = styled(Animated.Image)`
 const SplashScreen = () => {
   return (
     <AnimatedImage
-      source={require('../assets/images/splash-screen.png')}
+      source={require('../../public/images/splash-screen.png')}
       entering={FadeIn}
       exiting={FadeOut}
     />

@@ -53,7 +53,7 @@ const GeneralModal = ({ message, setMessage }: GeneralModalProps) => {
     >
       <Container>
         <BackgroundImage
-          source={require('../assets/images/general-modal.png')}
+          source={require('../../public/images/general-modal.png')}
           imageStyle={{ resizeMode: 'contain' }}
         >
           <Content>

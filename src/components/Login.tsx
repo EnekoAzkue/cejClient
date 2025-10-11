@@ -54,7 +54,7 @@ const Login = ({
 
   return (
     <BackgroundImage
-      source={require('../assets/images/old-school-entrance.png')}
+      source={require('../../public/images/old-school-entrance.png')}
     >
       <Button
         onPress={logIn}
