@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import type { ButtonProps } from '../interfaces/Button';
 import { useState } from 'react';
 import Animated from 'react-native-reanimated';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import Text from './Text';
 
 const ButtonBackgroundImage = styled.ImageBackground`
@@ -28,6 +28,7 @@ const Button = ({
   const defaultStyleObj = {
     width: 235,
     height: 98,
+    alignSelf: 'center',
     opacity: isPressed ? 0.75 : 1,
     transitionProperty: 'opacity',
     transitionDuration: 175,
