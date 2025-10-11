@@ -2,6 +2,7 @@ import ScreenContainer from '../../ScreenContainer';
 import {
   ButtonBackgroundImgSrc,
   ScreenBackgroundImgSrc,
+  SocketClientToServerEvents,
 } from '../../../constants';
 import {
   useCameraPermission,
@@ -17,6 +18,7 @@ import { ModalContext } from '../../../contexts/ModalContext';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../Button';
 import useMetrics from '../../../hooks/use-metrics';
+import { socket } from '../../../socket/socket';
 
 const ScanQr = ({ route }) => {
   const [isCameraOpen, setIsCameraOpen] = useState<boolean>(false);
@@ -77,11 +79,32 @@ const ScanQr = ({ route }) => {
   }
 
   function onCodeScanned(codes: Code[]) {
-    // Get & log the scanned code's value
-    const codeValue = codes[0].value;
-    console.log(`The scanned code's value is "${codeValue}".`);
+    // Prevent the client from emitting the "access to/exit from lab" event more than once
+    if (codes.length === 1) {
+      // Get & log the scanned code's value
+      const codeValue: string = codes[0].value!;
+      console.log(`The scanned code's value is "${codeValue}".`);
 
-    toggleCameraAndNavigatorStates();
+      const acolyteEmailAndIsInside: string[] = codeValue?.split('&');
+
+      const emailValueStartIndex: number = 6;
+      const acolyteEmail: string =
+        acolyteEmailAndIsInside[0].substring(emailValueStartIndex);
+
+      const isInsideValueStartIndex: number = 9;
+      const isInside: boolean =
+        acolyteEmailAndIsInside[1].substring(isInsideValueStartIndex) ===
+        'true';
+      console.log(acolyteEmail);
+      console.log(isInside);
+      socket.emit(
+        SocketClientToServerEvents.ACCESS_TO_EXIT_FROM_LAB,
+        acolyteEmail,
+        isInside,
+      );
+
+      toggleCameraAndNavigatorStates();
+    }
   }
 
   return isCameraOpen ? (

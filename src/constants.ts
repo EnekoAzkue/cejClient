@@ -37,6 +37,7 @@ enum SocketGeneralEvents {
 
 enum SocketClientToServerEvents {
   CONNECTION_OPEN = 'connection open',
+  ACCESS_TO_EXIT_FROM_LAB = 'access to/exit from lab',
 }
 
 export {
