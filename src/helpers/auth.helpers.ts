@@ -15,12 +15,15 @@ export async function authenticateUser(
     },
   );
 
-  const { user } = await response.json();
-
-  const authenticationAttemptResult = {
+  const authenticationAttemptResult: AuthenticateUserReturnValue = {
     statusCode: response.status,
-    user,
+    user: null,
   };
+
+  if (response.ok) {
+    const { user } = await response.json();
+    authenticationAttemptResult.user = user;
+  }
 
   return authenticationAttemptResult;
 }

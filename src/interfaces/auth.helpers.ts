@@ -2,7 +2,7 @@ import KaotikaUser from './KaotikaUser';
 
 interface AuthenticateUserReturnValue {
   statusCode: number;
-  user: KaotikaUser;
+  user: KaotikaUser | null;
 }
 
 export type { AuthenticateUserReturnValue };
