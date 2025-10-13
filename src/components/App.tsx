@@ -12,6 +12,7 @@ import { ModalContext } from '../contexts/ModalContext';
 import KaotikaUser from '../interfaces/KaotikaUser';
 import { AuthenticateUserReturnValue } from '../interfaces/auth.helpers';
 import { initSocket, performSocketCleanUp } from '../socket/socket';
+import { QRContext } from '../contexts/QRContext';
 
 const App = () => {
   const [isConfigured, setIsConfigured] = useState<boolean>(false);
@@ -78,8 +79,9 @@ const App = () => {
     return idToken;
   }
 
-  return (
-    <UserContext value={{ user, setUser }}>
+return (
+  <UserContext value={{ user, setUser }}>
+    <QRContext value={{ email: user ? user.email : null, isInside: user ? user.isInside : false, }}>
       <SafeAreaView>
         <GeneralModal
           message={generalModalMessage}
@@ -106,8 +108,9 @@ const App = () => {
           <SplashScreen />
         )}
       </SafeAreaView>
-    </UserContext>
-  );
+    </QRContext>
+  </UserContext>
+);
 };
 
 export default App;
